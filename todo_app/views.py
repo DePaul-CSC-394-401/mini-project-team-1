@@ -17,18 +17,15 @@ def signup(request):
         email = request.POST.get('email')
         
         if password == passowrd_cont:
-            user = User.objects.create_user(username, password, email)
+            user = User.objects.create_user(username=username, password=password, email=email)
             user.save()
             return redirect('userlogin')
         else:
             #case the password doesnt match
-            return render(request, 'signup.html', {"ERROR: MISMATCHED PASSWORDS"})
+            return render(request, 'signup.html', {"error": "MISMATCHED PASSWORDS"})
     return render(request, 'signup.html')
 
 def userlogin(request):
-    return render(request, 'userlogin.html')
-
-def signin(request):
     if request.method =='POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -36,9 +33,9 @@ def signin(request):
         
         if user is not None:
             login(request, user)
-            return render(request, 'signin.html')
+            return redirect('tasks')
         else:
-            return redirect('index')
+            return render(request, 'userlogin.html', {'error': 'INCORRECT USERNAME OR PASSWORD'})
             
     return render(request, 'userlogin.html')
 
