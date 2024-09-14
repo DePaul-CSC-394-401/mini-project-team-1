@@ -12,13 +12,17 @@ def signup(request):
     
     if request.method == "POST":
         username = request.POST.get('username')
-        password= request.POST.get('password')
-        passowrdcont= request.POST.get('passwordcont')
-        email= request.POST.get('email')
+        password = request.POST.get('password')
+        passowrd_cont = request.POST.get('passwordcont')
+        email = request.POST.get('email')
         
-        myuser = User.objects.create(username, password, email)
-        myuser.save()
-        return redirect('signin')
+        if password == passowrd_cont:
+            user = User.objects.create_user(username, password, email)
+            user.save()
+            return redirect('userlogin')
+        else:
+            #case the password doesnt match
+            return render(request, 'signup.html', {"ERROR: MISMATCHED PASSWORDS"})
     return render(request, 'signup.html')
 
 def userlogin(request):
