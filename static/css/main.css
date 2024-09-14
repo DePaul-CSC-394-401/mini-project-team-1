@@ -1,0 +1,34 @@
+h1 {
+    text-align: center;
+}
+
+form{
+    text-align: center;
+    size: 30px;
+    
+}
+label{
+    text-align: center;
+    size: 20px;
+}
+
+.box{
+    border: 2px,solid;
+    border-radius: 2px;
+    box-sizing: border-box;
+    
+    text-align: center;
+}
+
+
+input[type="email"], input[type="password"], input[id="username"], textarea {
+    font-size: 20px; 
+    padding: 3px; 
+    width: 20%;
+}
+
+
+button{
+size: 20px;
+font-size: 20px;
+}

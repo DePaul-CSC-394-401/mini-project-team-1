@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="static\css/main.css">
+</head>
+
+<body>
+    
+    <h1>Login</h1>
+    <div class="box">
+        <frorm action='/userlogin' method='post'>
+            {% csrf_token %}
+            <input type='text' id='username' name='username' placeholder="Enter Username" required>
+            <br>
+            <input type='password' id='password' name='password' placeholder="Enter Password" required>
+            <br>
+        <button type='submit' ><a href='signup'> SignIn</a> </button>
+        <br>
+        <a href='signup'> Create Account</a> 
+        </div>
+    
+</body>
+</html>
