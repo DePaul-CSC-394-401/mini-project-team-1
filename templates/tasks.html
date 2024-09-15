@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<body>
+    <h1> My To-Do List</h1>
+    <h2>To-Dos</h2>
+
+    <form action="/tasks" method="POST">
+
+        {% csrf_token %}
+
+        {{TaskForm.task_name}}
+
+        <input class="button" type="submit" name="Create Task">
+
+    </form>
+
+
+
+    {% for task in tasks %}
+
+        <p> {{task}}</p>
+       <!-- <p> {{task.task_description}} </p> -->
+       <!-- <p> {{task.created_at}} </p> -->
+       <!-- <p> {{task.completed}} </p> -->
+
+        {% empty %}
+        <h3> Currently No Tasks in List</h3>
+        {% endfor %}
+</body>
+
+{% endblock %}

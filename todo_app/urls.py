@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from django.contrib import admin
-from .views import taskList
+from .views import taskList, createList
 
 urlpatterns = [
     path('', views.index, name='index'),

@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
 from .models import Task
+from .forms import TaskForm
+from django.shortcuts import render, redirect
 
 
 def index(request):
@@ -43,9 +47,23 @@ def logout(request):
     pass
 
 def taskList(request):
+    form = TaskForm()
     tasks = Task.objects.all()
-    context = {'tasks':tasks}
-    return render(request, 'task_list.html', context)
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+        return redirect('/tasks')
+    context = {'tasks': tasks, 'TaskForm': form}
+    return render(request, 'tasks.html', context)
+
+class createList(CreateView):
+    model = Task
+    fields = ['task_name', 'task_description', 'completed']
+    success_url = reverse_lazy('tasks')
+
+
 
 '''
 ---------testing out versions--------------------------
