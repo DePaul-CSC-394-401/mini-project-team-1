@@ -21,9 +21,17 @@
     {% for task in tasks %}
 
         <p> {{task}}</p>
-       <!-- <p> {{task.task_description}} </p> -->
-       <!-- <p> {{task.created_at}} </p> -->
-       <!-- <p> {{task.completed}} </p> -->
+        <p>{{task.task_description}}</p>
+        <p>{{task.created_at}}</p>
+        {% if task.completed == True %}
+            <p> Task Completed: Yes</p>
+        {% else %}
+            <p> Task Completed: No</p>
+        {% endif %}
+        <a href="{% url 'task_update' task.id %}"> Update</a>
+        <br> <br>
+        <a href="{% url 'task_delete' task.id %}"> Delete</a>
+        <br> <br>
 
         {% empty %}
         <h3> Currently No Tasks in List</h3>

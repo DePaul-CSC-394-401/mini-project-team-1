@@ -58,10 +58,28 @@ def taskList(request):
     context = {'tasks': tasks, 'TaskForm': form}
     return render(request, 'tasks.html', context)
 
-class createList(CreateView):
-    model = Task
-    fields = ['task_name', 'task_description', 'completed']
-    success_url = reverse_lazy('tasks')
+
+def updateTask(request, pk):
+
+    tasks = Task.objects.get(id=pk)
+    form = TaskForm(instance=tasks)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=tasks)
+        if form.is_valid():
+            form.save()
+
+        return redirect('/tasks')
+    context = {'TaskForm': form}
+    return render(request, 'task_update.html', context)
+
+def deleteTask(request, pk):
+
+    tasks = Task.objects.get(id=pk)
+    if request.method == 'POST':
+        tasks.delete()
+        return redirect('/tasks')
+    context = {'tasks': tasks}
+    return render(request, 'task_delete.html', context)
 
 
 
