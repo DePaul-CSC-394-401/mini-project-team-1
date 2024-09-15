@@ -6,7 +6,7 @@
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
             <a href="{% url 'profile_settings' %}" style="margin-right: 10px;">Profile Management</a>
-        {% endif %}
+            {% endif %}
     </div>
 
     <h1> My To-Do List</h1>

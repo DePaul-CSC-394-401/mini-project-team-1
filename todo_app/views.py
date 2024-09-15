@@ -6,7 +6,10 @@ from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import Task
-from .forms import TaskForm, ProfileForm  # Ensure ProfileForm is defined in your forms.py
+from .forms import TaskForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
 
 def index(request):
     return render(request, 'index.html')
@@ -101,7 +104,27 @@ def profile_settings(request):
         form = PasswordChangeForm(request.user)
         return render(request, 'profile.html', {'form': form})
 
+def profile_settings(request):
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(user=request.user, data=request.POST)
+        email = request.POST.get('email')
 
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)  # Keep the user logged in after password change
+            return redirect('tasks')  # Redirect to the tasks page after successful password change
+
+        # Update email if provided
+        if email:
+            request.user.email = email
+            request.user.save()
+
+        return render(request, 'profile.html', {'password_form': password_form, 'error': 'Invalid form submission'})
+
+    else:
+        password_form = PasswordChangeForm(user=request.user)
+
+    return render(request, 'profile.html', {'password_form': password_form})
 '''
 ---------testing out versions--------------------------
 class taskList(ListView):
