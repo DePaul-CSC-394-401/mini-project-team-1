@@ -12,7 +12,7 @@
     <h1> My To-Do List</h1>
     <h2>To-Dos</h2>
 
-    <form action="/tasks" method="POST">
+    <form action='/tasks' method="POST">
         {% csrf_token %}
         {{ TaskForm.as_p }}
         <input class="button" type="submit" value="Create Task">
