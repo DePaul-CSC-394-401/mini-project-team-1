@@ -7,7 +7,6 @@
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
             <a href="{% url 'tasks' %}">Task List</a>
             <a href="{% url 'profile_settings' %}">Profile Management</a>
-
         {% endif %}
     </div>
 
@@ -17,16 +16,17 @@
     <form method="POST" action="{% url 'profile_settings' %}">
         {% csrf_token %}
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="{{ user.email }}" required>
+        <input type="email" id="email" name="email" value="{{ user.email }}">
         
-        <button type="submit">Update Email</button>
+
+        <button type="submit" name="update_email">Update Email</button> 
     </form>
 
     <!-- Form for password change -->
     <form method="POST" action="{% url 'profile_settings' %}">
         {% csrf_token %}
         {{ password_form.as_p }}
-        <button type="submit">Change Password</button>
+        <button type="submit" name="change_password">Change Password</button> 
     </form>
 
 </body>
