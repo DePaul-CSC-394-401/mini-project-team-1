@@ -9,6 +9,8 @@ from .models import Task
 from .forms import TaskForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import models
+
 
 
 def index(request):
@@ -47,16 +49,45 @@ def userlogout(request):
     logout(request)
     return redirect('userlogin')  # Redirect to the login page after logout
 
+
 def taskList(request):
-    form = TaskForm()
+    form = TaskForm()  # Form for creating a new task
+    query = request.GET.get('q')  # Capture the search query
+
+    # Display all tasks
     tasks = Task.objects.all()
+
+    # This code will filter tasks by the search query (if provided)
+    if query:
+        tasks = Task.objects.filter(task_name__icontains=query) | Task.objects.filter(task_description__icontains=query)
+
     if request.method == 'POST':
+        # Process task creation via POST request
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
         return redirect('/tasks')
-    context = {'tasks': tasks, 'TaskForm': form}
+
+    # Sort tasks by priority from high to low
+    tasks = tasks.order_by(
+        models.Case(
+            models.When(priority='High', then=0),
+            models.When(priority='Medium', then=1),
+            models.When(priority='Low', then=2),
+            default=3,
+            output_field=models.IntegerField()
+        )
+    )
+
+    # If no tasks are found based on the query, throw this error
+    if not tasks.exists() and query:
+        error_message = "No such item found."
+    else:
+        error_message = ""
+
+    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message}
     return render(request, 'tasks.html', context)
+
 
 def updateTask(request, pk):
     tasks = Task.objects.get(id=pk)
@@ -77,54 +108,33 @@ def deleteTask(request, pk):
     context = {'tasks': tasks}
     return render(request, 'task_delete.html', context)
 
-# ** Added Profile Management View **
+# ** Updated Profile Management View to handle email and password separately ** 
 def profile_settings(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = request.user
-        
-        if email:
-            user.email = email
-            user.save()
-        
-        if password:
-            # Handle password update
-            form = PasswordChangeForm(user, request.POST)
-            if form.is_valid():
-                form.save()
-                update_session_auth_hash(request, form.user)  # Important to keep the user logged in
-                return redirect('profile_settings')
-            else:
-                return render(request, 'profile.html', {'form': form, 'error': form.errors})
-        
-        return redirect('profile_settings')
-    
-    else:
-        form = PasswordChangeForm(request.user)
-        return render(request, 'profile.html', {'form': form})
+   # Handle email form submission
+   if request.method == 'POST' and 'update_email' in request.POST:
+       email = request.POST.get('email')
+       if email:
+           request.user.email = email
+           request.user.save()
+           return redirect('tasks')
 
-def profile_settings(request):
-    if request.method == 'POST':
-        password_form = PasswordChangeForm(user=request.user, data=request.POST)
-        email = request.POST.get('email')
+   # Handle password form submission
+   if request.method == 'POST' and 'change_password' in request.POST:
+       password_form = PasswordChangeForm(user=request.user, data=request.POST)
+       if password_form.is_valid():
+           user = password_form.save()
+           update_session_auth_hash(request, user)  # Keep the user logged in after password change
+           return redirect('tasks')
+       else:
+           return render(request, 'profile.html', {'password_form': password_form, 'error': 'Invalid password change'})
 
-        if password_form.is_valid():
-            user = password_form.save()
-            update_session_auth_hash(request, user)  # Keep the user logged in after password change
-            return redirect('tasks')  # Redirect to the tasks page after successful password change
+   # Load the forms if GET request
+   else:
+       password_form = PasswordChangeForm(user=request.user)
+   return render(request, 'profile.html', {'password_form': password_form})
 
-        # Update email if provided
-        if email:
-            request.user.email = email
-            request.user.save()
 
-        return render(request, 'profile.html', {'password_form': password_form, 'error': 'Invalid form submission'})
 
-    else:
-        password_form = PasswordChangeForm(user=request.user)
-
-    return render(request, 'profile.html', {'password_form': password_form})
 '''
 ---------testing out versions--------------------------
 class taskList(ListView):

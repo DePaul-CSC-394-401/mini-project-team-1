@@ -6,22 +6,36 @@
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
             <a href="{% url 'profile_settings' %}" style="margin-right: 10px;">Profile Management</a>
-            {% endif %}
+        {% endif %}
     </div>
 
     <h1> My To-Do List</h1>
     <h2>To-Dos</h2>
 
-    <form action='/tasks' method="POST">
+    <!-- Task creation form -->
+    <form action='/tasks/' method="POST">
         {% csrf_token %}
         {{ TaskForm.as_p }}
         <input class="button" type="submit" value="Create Task">
     </form>
 
+    <!-- Search form -->
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Display error message if no tasks found -->
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <!-- Display tasks with priority -->
     {% for task in tasks %}
         <div>
-            <p> {{ task.task_name }}</p>
-            <p>{{ task.task_description }}</p>
+            <p>Task Name: {{ task.task_name }}</p>
+            <p>Description: {{ task.task_description }}</p>
+            <p>Priority: {{ task.priority }}</p>  <!-- Display the priority -->
             <p>{{ task.created_at }}</p>
             {% if task.completed %}
                 <p> Task Completed: Yes</p>
