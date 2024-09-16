@@ -49,7 +49,7 @@
                         <span class="high-priority-icon">!</span> <!-- Add icon for High priority -->
                     {% endif %}
                 </p>
-                <p>{{ task.created_at }}</p>
+                <p><strong>Due: </strong> {{ task.due_date }}</p>
                 {% if task.completed %}
                     <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
                 {% else %}
