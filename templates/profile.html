@@ -5,7 +5,9 @@
     <div style="text-align: right; margin-bottom: 20px;">
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
+            <a href="{% url 'tasks' %}">Task List</a>
             <a href="{% url 'profile_settings' %}">Profile Management</a>
+
         {% endif %}
     </div>
 
