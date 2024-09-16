@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 
 class TaskForm(forms.ModelForm):
     task_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Add in a New Task'}))
-    due_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
-    
+    due_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}), required=False)
+
     class Meta:
         model = Task
         fields = ['task_name', 'task_description', 'priority']

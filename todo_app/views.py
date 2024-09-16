@@ -66,6 +66,8 @@ def taskList(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)  # Don't save to the database yet
+            if not task.due_date:
+                task.due_date = None
             task.user = request.user  # Automatically associate the task with the logged-in user
             task.save()  # Save the task to the database
         return redirect('/tasks')

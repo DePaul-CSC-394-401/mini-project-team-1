@@ -15,7 +15,7 @@ class Task(models.Model):
     task_description = models.TextField(null=True, blank=True)
     completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    due_date = models.DateTimeField(default=timezone.now)
+    due_date = models.DateTimeField(blank=True, null=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Medium')
     
     def __str__(self):
