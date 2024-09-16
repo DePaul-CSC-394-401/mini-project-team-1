@@ -2,11 +2,15 @@
 
 {% block head %}
 <body id='taskbody'>
-    <div style="text-align: right; margin-bottom: 20px;">
+    <div class="header-container">
         {% if user.is_authenticated %}
-            <p style="text-align: left; font-size: 1.5em;">Hello, {{ user.username }}!</p> <!-- Display username -->
-            <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
-            <a href="{% url 'profile_settings' %}" style="margin-right: 10px;">Profile Management</a>
+            <div class="user-info">
+                Hello, {{ user.username }}!
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'profile_settings' %}">Profile Management</a>
+            </div>
         {% endif %}
     </div>
 

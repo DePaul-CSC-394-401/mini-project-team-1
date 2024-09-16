@@ -207,3 +207,26 @@ a:hover {
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Header Container for Username and Links */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 1.5em;
+}
+
+.header-container .user-info {
+    font-weight: bold;
+}
+
+.header-container a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #3498db;
+}
+
+.header-container a:hover {
+    text-decoration: underline;
+}
