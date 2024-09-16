@@ -47,16 +47,33 @@ def userlogout(request):
     logout(request)
     return redirect('userlogin')  # Redirect to the login page after logout
 
+
 def taskList(request):
     form = TaskForm()
+    query = request.GET.get('q')  # search query capture
+
+    # Display full task
     tasks = Task.objects.all()
+
+    # This code will filter task by word provided either thru name or description
+    if query:
+        tasks = Task.objects.filter(task_name__icontains=query) | Task.objects.filter(task_description__icontains=query)
+
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
         return redirect('/tasks')
-    context = {'tasks': tasks, 'TaskForm': form}
+
+    # in case if the word is not found throw this error 
+    if not tasks.exists() and query:
+        error_message = "No such item found."
+    else:
+        error_message = ""
+
+    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message}
     return render(request, 'tasks.html', context)
+
 
 def updateTask(request, pk):
     tasks = Task.objects.get(id=pk)
