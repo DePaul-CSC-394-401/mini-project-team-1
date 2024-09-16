@@ -1,118 +1,209 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8;
+    color: #333;
+}
+
+/* Headers */
 h1 {
     text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #34495e;
 }
 
 .header {
     text-align: center;
-    font-size: 50px;
+    font-size: 3em;
+    margin: 20px 0;
+    color: #2c3e50;
 }
 
+/* General Layout */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Task Body */
 .taskbody {
-    background-color: bisque;
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#usersignup{
-    text-align: center;
-    box-sizing: content-box;
-    font-size: medium;
-    background-color: blanchedalmond;
+/* Signup Page */
+#usersignup {
+    background-color: #e0f7fa;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
-    
+    padding: 20px;
+    border-radius: 10px;
 }
 
 .loginlink {
     text-align: center;
-    box-sizing: content-box;
-    font-size: large;
-    color: aqua;
+    font-size: 1.2em;
+    color: #00796b;
+    margin-top: 15px;
 }
 
 #index_page {
-    background-color: antiquewhite;
-    color: black;
+    background-color: #fcf8e3;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-}
-form{
+/* Form Styles */
+form {
     text-align: center;
-    size: 30px;
-    
+    margin: 20px 0;
+    padding: 20px;
 }
-label{
-    text-align: center;
-    size: 20px;
+
+label {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+input[type="email"], input[type="password"], input[id="username"], textarea {
+    font-size: 1.2em;
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"], button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover, button:hover {
+    background-color: #2980b9;
 }
 
 .userbody {
-
+    display: flex;
     justify-content: center;
     align-items: center;
-
+    padding: 20px;
 }
+
+/* Login Page */
 #userloginpage {
-    background-color: white;
+    background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
+    padding: 20px;
 }
 
-.box{
+.box, .userbox {
     border-radius: 10px;
-    width: 1100px;
-    padding: 10px;
-    text-align: center;
-    align-items: center;
-    background-color: rgb(209, 191, 179);
-    border-width: 10px;
-    margin-bottom: 30px;
-    
-
-}
-
-.userbox{
-    border-radius: 10px;
-    width: 850px;
-    padding: 10px;
-    text-align: center;
-    align-items: center;
-    background-color: bisque;
-    border-width: 10px;
-
-}
-
-.inputbox2 {
-    width: 100px;
+    width: 100%;
+    max-width: 850px;
     padding: 30px;
-    box-sizing: border-box;
+    text-align: center;
+    background-color: #ecf0f1;
+    border-width: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-    font-size: medium;
 }
 
-.inputbox {
-    width: 100px;
-    padding: 30px;
-    box-sizing: border-box;
-    margin-bottom: 5px;
-    font-size: smaller;
+/* Form Input Boxes */
+.inputbox, .inputbox2 {
+    width: 80%;
+    padding: 15px;
+    margin: 10px auto;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
-
-input[type='submit'] {
-    cursor: pointer;
-}
-
-
 
 input[type="email"], input[type="password"], input[id="username"], textarea {
-    font-size: 20px; 
-    padding: 3px; 
-    width: 20%;
+    font-size: 1em;
+    padding: 10px;
+    width: 100%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
 }
 
+/* Button Styles */
+button, input[type="submit"] {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-button{
-size: 20px;
-font-size: 20px;
+button:hover, input[type="submit"]:hover {
+    background-color: #2ecc71;
+}
+
+/* Links */
+a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Additional Styles */
+.error-message {
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.success-message {
+    color: #2ecc71;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Task List Styles */
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.task-list li {
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
