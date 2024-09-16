@@ -6,7 +6,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, TaskUpdateForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db import models
@@ -65,7 +65,9 @@ def taskList(request):
         # Process task creation via POST request
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)  # Don't save to the database yet
+            task.user = request.user  # Automatically associate the task with the logged-in user
+            task.save()  # Save the task to the database
         return redirect('/tasks')
 
     # Sort tasks by priority from high to low
@@ -91,9 +93,9 @@ def taskList(request):
 
 def updateTask(request, pk):
     tasks = Task.objects.get(id=pk)
-    form = TaskForm(instance=tasks)
+    form = TaskUpdateForm(instance=tasks) 
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=tasks)
+        form = TaskUpdateForm(request.POST, instance=tasks)
         if form.is_valid():
             form.save()
         return redirect('/tasks')

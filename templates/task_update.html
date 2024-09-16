@@ -1,18 +1,39 @@
 {% extends 'base.html' %}
 
 {% block head %}
-
 <body>
-    <h1> Update Your Task</h1>
+    <h1>Update Your Task</h1>
     <form action="" method="POST">
 
         {% csrf_token %}
 
-        {{TaskForm}}
+        <!-- Render the form fields manually to give better control over the layout -->
+        <div class="form-group">
+            <label for="task_name">Task name:</label>
+            {{ TaskForm.task_name }}
+        </div>
 
-        <input class="button" type="submit" name="Update Task">
+        <div class="form-group">
+            <label for="task_description">Task description:</label>
+            {{ TaskForm.task_description }}
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            {{ TaskForm.priority }}
+        </div>
+
+        <!-- Checkbox for completed task -->
+        <div class="form-group">
+            <label for="completed">Completed:</label>
+            {{ TaskForm.completed }}
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <input class="button" type="submit" value="Update Task">
+        </div>
 
     </form>
 </body>
-
 {% endblock %}

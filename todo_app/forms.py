@@ -8,7 +8,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = ['task_name', 'task_description', 'priority']
 
 # ** Email Update Form for Profile Management **
 class EmailUpdateForm(forms.ModelForm):
@@ -18,3 +18,11 @@ class EmailUpdateForm(forms.ModelForm):
         widgets = {
             'email': forms.EmailInput(attrs={'placeholder': 'Update your email'}),
         }
+
+# Form for updating tasks (includes the 'completed' field)
+class TaskUpdateForm(forms.ModelForm):
+    task_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Update Task Name'}))
+
+    class Meta:
+        model = Task
+        fields = ['task_name', 'task_description', 'priority', 'completed']

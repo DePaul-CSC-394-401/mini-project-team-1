@@ -2,53 +2,66 @@
 
 {% block head %}
 <body id='taskbody'>
-    <div style="text-align: right; margin-bottom: 20px;">
+    <div class="header-container">
         {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
-            <a href="{% url 'profile_settings' %}" style="margin-right: 10px;">Profile Management</a>
+            <div class="user-info">
+                Hello, {{ user.username }}!
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'profile_settings' %}">Profile Management</a>
+            </div>
         {% endif %}
     </div>
 
     <h1> My To-Do List</h1>
-    <h2>To-Dos</h2>
-
-    <!-- Task creation form -->
-    <form action='/tasks/' method="POST">
-        {% csrf_token %}
-        {{ TaskForm.as_p }}
-        <input class="button" type="submit" value="Create Task">
-    </form>
-
-    <!-- Search form -->
-    <form method="GET" action="">
-        <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
-        <button type="submit">Search</button>
-    </form>
-
-    <!-- Display error message if no tasks found -->
-    {% if error_message %}
-        <p style="color: red;">{{ error_message }}</p>
-    {% endif %}
-
-    <!-- Display tasks with priority -->
-    {% for task in tasks %}
-        <div>
-            <p>Task Name: {{ task.task_name }}</p>
-            <p>Description: {{ task.task_description }}</p>
-            <p>Priority: {{ task.priority }}</p>  <!-- Display the priority -->
-            <p>{{ task.created_at }}</p>
-            {% if task.completed %}
-                <p> Task Completed: Yes</p>
-            {% else %}
-                <p> Task Completed: No</p>
-            {% endif %}
-            <a href="{% url 'task_update' task.id %}"> Update</a>
-            <br><br>
-            <a href="{% url 'task_delete' task.id %}"> Delete</a>
-            <br><br>
+   
+    <div class="task-list">
+    
+        <!-- Task creation form -->
+        <form action='/tasks/' method="POST">
+            {% csrf_token %}
+            {{ TaskForm.as_p }}
+            <input class="button" type="submit" value="Create Task">
+        </form>
+    
+        <!-- Search form -->
+        <form method="GET" action="">
+            <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
+            <button type="submit">Search</button>
+        </form>
+    
+        <!-- Display error message if no tasks found -->
+        {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+        {% endif %}
+    
+        <h2>To-Dos</h2>
+        <!-- Display tasks in a neater, grid-like style -->
+        <div class="task-grid">
+            {% for task in tasks %}
+            <div class="task-card">
+                <p><strong>Task Name:</strong> {{ task.task_name }}</p>
+                <p><strong>Description:</strong> {{ task.task_description }}</p>
+                <p><strong>Priority:</strong> 
+                    {{ task.priority }} 
+                    {% if task.priority == 'High' %}
+                        <span class="high-priority-icon">!</span> <!-- Add icon for High priority -->
+                    {% endif %}
+                </p>
+                <p>{{ task.created_at }}</p>
+                {% if task.completed %}
+                    <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
+                {% else %}
+                    <p>Task Completed: No</p>
+                {% endif %}
+                <a href="{% url 'task_update' task.id %}">Update</a> |
+                <a href="{% url 'task_delete' task.id %}">Delete</a>
+            </div>
+            {% empty %}
+            <h3>Currently No Tasks in List</h3>
+            {% endfor %}
         </div>
-    {% empty %}
-        <h3> Currently No Tasks in List</h3>
-    {% endfor %}
+    </div>
 </body>
 {% endblock %}
