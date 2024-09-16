@@ -4,6 +4,7 @@
 <body id='taskbody'>
     <div style="text-align: right; margin-bottom: 20px;">
         {% if user.is_authenticated %}
+            <p style="text-align: left; font-size: 1.5em;">Hello, {{ user.username }}!</p> <!-- Display username -->
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>
             <a href="{% url 'profile_settings' %}" style="margin-right: 10px;">Profile Management</a>
         {% endif %}

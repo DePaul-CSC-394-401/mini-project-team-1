@@ -8,7 +8,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = ['task_name', 'task_description', 'completed', 'priority']
 
 # ** Email Update Form for Profile Management **
 class EmailUpdateForm(forms.ModelForm):

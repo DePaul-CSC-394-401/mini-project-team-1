@@ -65,7 +65,9 @@ def taskList(request):
         # Process task creation via POST request
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
+            task = form.save(commit=False)  # Don't save to the database yet
+            task.user = request.user  # Automatically associate the task with the logged-in user
+            task.save()  # Save the task to the database
         return redirect('/tasks')
 
     # Sort tasks by priority from high to low
