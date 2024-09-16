@@ -230,3 +230,47 @@ a:hover {
 .header-container a:hover {
     text-decoration: underline;
 }
+
+/* Task Grid Styles */
+.task-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.task-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Adjust the width for how large the cards should be */
+    margin: 10px;
+}
+
+.task-card p {
+    margin: 10px 0;
+}
+
+.task-card a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.task-card a:hover {
+    text-decoration: underline;
+}
+
+.high-priority-icon {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.complete-checkmark{
+    color: green;
+    font-size: medium;
+    font-weight: bold;
+    margin-left: 5px;
+}
