@@ -30,11 +30,12 @@
         <p style="color: red;">{{ error_message }}</p>
     {% endif %}
 
-    <!-- Display tasks -->
+    <!-- Display tasks with priority -->
     {% for task in tasks %}
         <div>
-            <p>{{ task.task_name }}</p>
-            <p>{{ task.task_description }}</p>
+            <p>Task Name: {{ task.task_name }}</p>
+            <p>Description: {{ task.task_description }}</p>
+            <p>Priority: {{ task.priority }}</p>  <!-- Display the priority -->
             <p>{{ task.created_at }}</p>
             {% if task.completed %}
                 <p> Task Completed: Yes</p>

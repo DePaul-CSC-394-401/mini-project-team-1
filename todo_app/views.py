@@ -9,6 +9,7 @@ from .models import Task
 from .forms import TaskForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db import models
 
 
 def index(request):
@@ -49,23 +50,35 @@ def userlogout(request):
 
 
 def taskList(request):
-    form = TaskForm()
-    query = request.GET.get('q')  # search query capture
+    form = TaskForm()  # Form for creating a new task
+    query = request.GET.get('q')  # Capture the search query
 
-    # Display full task
+    # Display all tasks
     tasks = Task.objects.all()
 
-    # This code will filter task by word provided either thru name or description
+    # This code will filter tasks by the search query (if provided)
     if query:
         tasks = Task.objects.filter(task_name__icontains=query) | Task.objects.filter(task_description__icontains=query)
 
     if request.method == 'POST':
+        # Process task creation via POST request
         form = TaskForm(request.POST)
         if form.is_valid():
             form.save()
         return redirect('/tasks')
 
-    # in case if the word is not found throw this error 
+    # Sort tasks by priority from high to low
+    tasks = tasks.order_by(
+        models.Case(
+            models.When(priority='High', then=0),
+            models.When(priority='Medium', then=1),
+            models.When(priority='Low', then=2),
+            default=3,
+            output_field=models.IntegerField()
+        )
+    )
+
+    # If no tasks are found based on the query, throw this error
     if not tasks.exists() and query:
         error_message = "No such item found."
     else:
