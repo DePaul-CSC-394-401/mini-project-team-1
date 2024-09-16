@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<body>
+<body id='taskbody'>
     <div style="text-align: right; margin-bottom: 20px;">
         {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" style="margin-right: 10px;">Logout</a>

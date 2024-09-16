@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block head %}
-<body>
-    <h1>New User</h1>
+<body id='usersignup'>
+    
 <div class='box'>
+    <h1>New User</h1>
     <form action='/signup' method='post'>
         {% csrf_token %}
         {% if error %}

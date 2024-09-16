@@ -2,6 +2,39 @@ h1 {
     text-align: center;
 }
 
+.header {
+    text-align: center;
+    font-size: 50px;
+}
+
+.taskbody {
+    background-color: bisque;
+}
+
+#usersignup{
+    text-align: center;
+    box-sizing: content-box;
+    font-size: medium;
+    background-color: blanchedalmond;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    
+}
+
+.loginlink {
+    text-align: center;
+    box-sizing: content-box;
+    font-size: large;
+    color: aqua;
+}
+
+#index_page {
+    background-color: antiquewhite;
+    color: black;
+
+}
 form{
     text-align: center;
     size: 30px;
@@ -12,13 +45,64 @@ label{
     size: 20px;
 }
 
-.box{
-    border: 2px,solid;
-    border-radius: 2px;
-    box-sizing: border-box;
-    
-    text-align: center;
+.userbody {
+
+    justify-content: center;
+    align-items: center;
+
 }
+#userloginpage {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.box{
+    border-radius: 10px;
+    width: 1100px;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    background-color: rgb(209, 191, 179);
+    border-width: 10px;
+    margin-bottom: 30px;
+    
+
+}
+
+.userbox{
+    border-radius: 10px;
+    width: 850px;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    background-color: bisque;
+    border-width: 10px;
+
+}
+
+.inputbox2 {
+    width: 100px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+    font-size: medium;
+}
+
+.inputbox {
+    width: 100px;
+    padding: 30px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    font-size: smaller;
+}
+
+input[type='submit'] {
+    cursor: pointer;
+}
+
 
 
 input[type="email"], input[type="password"], input[id="username"], textarea {
