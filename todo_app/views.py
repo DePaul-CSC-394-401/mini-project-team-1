@@ -55,7 +55,7 @@ def taskList(request):
     query = request.GET.get('q')  # Capture the search query
 
     # Display all tasks
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(user=request.user)
 
     # This code will filter tasks by the search query (if provided)
     if query:
