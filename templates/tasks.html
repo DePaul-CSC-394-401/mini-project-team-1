@@ -63,5 +63,13 @@
             {% endfor %}
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            var reminderMessage = "{{ reminder_message }}";
+            if (reminderMessage) {
+                alert(reminderMessage);
+            }
+        };
+    </script>
 </body>
 {% endblock %}
