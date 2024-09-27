@@ -17,6 +17,7 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField(blank=True, null=True)
     priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Medium')
+    reminder_hours = models.IntegerField(default=24) #default reminder time is 24 hours
     
     def __str__(self):
         return self.task_name

@@ -1,3 +1,4 @@
+from datetime import timedelta, timezone
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -10,6 +11,8 @@ from .forms import TaskForm, TaskUpdateForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db import models
+from django.utils import timezone
+
 
 
 
@@ -39,6 +42,10 @@ def userlogin(request):
 
         if user is not None:
             login(request, user)
+            tasks = Task.objects.filter(user=user)
+            reminder_tasks = [task for task in tasks if task.due_date and task.due_date - timedelta(hours=task.reminder_hours) <= timezone.now()]
+            if reminder_tasks:
+                request.session['reminder'] = f"You have {len(reminder_tasks)} task(s) due soon!"
             return redirect('tasks')
         else:
             return render(request, 'userlogin.html', {'error': 'INCORRECT USERNAME OR PASSWORD'})
@@ -89,7 +96,10 @@ def taskList(request):
     else:
         error_message = ""
 
-    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message}
+    #checks for reminder message
+    reminder_message = request.session.pop('reminder', None)
+
+    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message, 'reminder_message': reminder_message}
     return render(request, 'tasks.html', context)
 
 
