@@ -11,4 +11,7 @@ urlpatterns = [
     path('task_update/<str:pk>/', views.updateTask, name='task_update'),
     path('task_delete/<str:pk>/', views.deleteTask, name='task_delete'),
     path('profile/', views.profile_settings, name='profile_settings'),  # Added profile management
+    path('task_archive/<str:pk>/', views.archiveTask, name='task_archive'),
+    path('archived_tasks/', views.archivedTasks, name='archived_tasks'),
+    path('task_restore/<str:pk>/', views.restoreTask, name='task_restore'),
 ]

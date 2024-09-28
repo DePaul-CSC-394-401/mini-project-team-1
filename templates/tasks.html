@@ -30,6 +30,8 @@
             <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
             <button type="submit">Search</button>
         </form>
+
+        <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks</a>
     
         <!-- Display error message if no tasks found -->
         {% if error_message %}
@@ -56,7 +58,12 @@
                     <p>Task Completed: No</p>
                 {% endif %}
                 <a href="{% url 'task_update' task.id %}">Update</a> |
-                <a href="{% url 'task_delete' task.id %}">Delete</a>
+                <a href="{% url 'task_delete' task.id %}">Delete</a> |
+    <!-- Archive form -->
+<form action="{% url 'task_archive' task.id %}" method="POST" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit" style="background:none; border:none; color:blue; cursor:pointer;">Archive</button>
+</form>
             </div>
             {% empty %}
             <h3>Currently No Tasks in List</h3>
