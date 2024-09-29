@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['task_name', 'due_date', 'task_description', 'priority', 'reminder_hours']
+        fields = ['task_name', 'due_date', 'task_description', 'priority', 'category', 'reminder_hours']
 
 # ** Email Update Form for Profile Management **
 class EmailUpdateForm(forms.ModelForm):
@@ -26,4 +26,5 @@ class TaskUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['task_name', 'task_description', 'priority', 'completed']
+        fields = ['task_name', 'task_description', 'category', 'priority', 'progress', 'completed']
+

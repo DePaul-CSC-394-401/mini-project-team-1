@@ -29,7 +29,11 @@
         <form method="GET" action="">
             <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
             <button type="submit">Search</button>
+
+            <input type="text" name="c" placeholder="Categories" value="{{ request.GET.c }}">
+            <button type="submit">Search</button>
         </form>
+
     
         <!-- Display error message if no tasks found -->
         {% if error_message %}
@@ -41,6 +45,8 @@
         <div class="task-grid">
             {% for task in tasks %}
             <div class="task-card">
+                <p style="text-align: center"><strong>Category:</strong> {{ task.category }}</p>
+                <br>
                 <p><strong>Task Name:</strong> {{ task.task_name }}</p>
                 <p><strong>Description:</strong> {{ task.task_description }}</p>
                 <p><strong>Priority:</strong> 
@@ -49,7 +55,15 @@
                         <span class="high-priority-icon">!</span> <!-- Add icon for High priority -->
                     {% endif %}
                 </p>
+
                 <p><strong>Due: </strong> {{ task.due_date }}</p>
+                <p><strong>Progress: </strong> 
+                    {{ task.progress }}
+                    {% if task.progress == '100%' %}
+                        <span class="100% progress">&#10003;</span>
+                    {% endif %}
+                </p>
+
                 {% if task.completed %}
                     <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
                 {% else %}

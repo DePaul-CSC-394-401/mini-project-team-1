@@ -10,5 +10,5 @@ urlpatterns = [
     path('tasks/', views.taskList, name='tasks'),
     path('task_update/<str:pk>/', views.updateTask, name='task_update'),
     path('task_delete/<str:pk>/', views.deleteTask, name='task_delete'),
-    path('profile/', views.profile_settings, name='profile_settings'),  # Added profile management
+    path('profile/', views.profile_settings, name='profile_settings')
 ]

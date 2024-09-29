@@ -60,6 +60,7 @@ def userlogout(request):
 def taskList(request):
     form = TaskForm()  # Form for creating a new task
     query = request.GET.get('q')  # Capture the search query
+    query2 = request.GET.get('c') # Capture the category search query
 
     # Display all tasks
     tasks = Task.objects.filter(user=request.user)
@@ -67,6 +68,10 @@ def taskList(request):
     # This code will filter tasks by the search query (if provided)
     if query:
         tasks = Task.objects.filter(task_name__icontains=query) | Task.objects.filter(task_description__icontains=query)
+
+    # This code will filter the tasks by the category query
+    if query2:
+        tasks = Task.objects.filter(category__icontains=query2)
 
     if request.method == 'POST':
         # Process task creation via POST request
@@ -100,6 +105,13 @@ def taskList(request):
     reminder_message = request.session.pop('reminder', None)
 
     context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message, 'reminder_message': reminder_message}
+
+    if not tasks.exists() and query2:
+        error_message = "No such item found."
+    else:
+        error_message = ""
+
+    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message}
     return render(request, 'tasks.html', context)
 
 
@@ -146,6 +158,7 @@ def profile_settings(request):
    else:
        password_form = PasswordChangeForm(user=request.user)
    return render(request, 'profile.html', {'password_form': password_form})
+
 
 
 
