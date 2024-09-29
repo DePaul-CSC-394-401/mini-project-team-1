@@ -3,6 +3,9 @@
 {% block head %}
 <body>
     <h1>Add a Task</h1>
+    <div class="nav-links">
+        <a href="{% url 'tasks' %}"> Back to tasks</a> 
+    </div>
     <form action="" method="post">
 
         {% csrf_token %}
