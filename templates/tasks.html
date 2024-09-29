@@ -27,7 +27,9 @@
             <input type="text" name="c" placeholder="Categories" value="{{ request.GET.c }}">
             <button type="submit">Search</button>
 
-            <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks</a>
+            <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks | </a>
+            <a href="{% url 'create_team' %}" class="button">Create Team | </a>
+            <a href="{% url 'view_teams' %}" class="button">View Teams</a>
     
         </form>
 

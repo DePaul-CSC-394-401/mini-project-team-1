@@ -7,7 +7,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from .models import Task
-from .forms import TaskForm, TaskUpdateForm
+from .forms import TaskForm, TaskUpdateForm, TeamForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db import models
@@ -184,6 +184,24 @@ def AddTask(request):
         return redirect('/tasks')
     context = {'TaskForm': form}
     return render(request, 'task_add.html', context)
+
+def create_team(request):
+    if request.method == 'POST':
+        form = TeamForm(request.POST)
+        if form.is_valid():
+            team = form.save(commit=False)
+            team.save()
+            team.members.add(request.user)  # Add the user creating the team as a member
+            return redirect('view_teams')
+    else:
+        form = TeamForm()
+    return render(request, 'create_team.html', {'form': form})
+
+
+def view_teams(request):
+    teams = request.user.teams.all()  # Get all teams the user is part of
+    context = {'teams': teams}
+    return render(request, 'view_teams.html', context)
 
 
 '''

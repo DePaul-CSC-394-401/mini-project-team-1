@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Task
+from .models import Task, Team
 from django.contrib.auth.models import User
 
 class TaskForm(forms.ModelForm):
@@ -27,4 +27,12 @@ class TaskUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['task_name', 'task_description', 'category', 'priority', 'progress', 'completed']
+
+class TeamForm(forms.ModelForm):
+    class Meta:
+        model = Team
+        fields = ['name', 'description']
+
+    name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Team Name'}))
+    description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your team here...'}), required=False)
 
