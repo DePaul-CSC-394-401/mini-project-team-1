@@ -8,8 +8,9 @@
                 Hello, {{ user.username }}!
             </div>
             <div class="nav-links">
-                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'task_add' %}"> Add a Task</a> 
                 <a href="{% url 'profile_settings' %}">Profile Management</a>
+                <a href="{% url 'logout' %}">Logout</a>
             </div>
         {% endif %}
     </div>
@@ -18,9 +19,6 @@
    
     <div class="task-list">
     
-        <!-- Task creation Link -->
-        <a href="{% url 'task_add' %}"> Add a Task</a> 
-    
         <!-- Search form -->
         <form method="GET" action="">
             <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
@@ -28,10 +26,11 @@
 
             <input type="text" name="c" placeholder="Categories" value="{{ request.GET.c }}">
             <button type="submit">Search</button>
+
+            <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks</a>
+    
         </form>
 
-        <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks</a>
-    
         <!-- Display error message if no tasks found -->
         {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
