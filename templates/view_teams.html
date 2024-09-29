@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1>Your Teams</h1>
+<ul>
+    {% for team in teams %}
+    <li>
+        <strong>{{ team.name }}</strong> - {{ team.description }}
+    </li>
+    {% empty %}
+    <li>You are not part of any teams.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'create_team' %}">Create a New Team | </a>
+<a href="{% url 'tasks' %}" class="button">Go Back</a>
+{% endblock %}

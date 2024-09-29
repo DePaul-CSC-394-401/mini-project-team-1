@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1>Create a Team</h1>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Create Team</button>
+</form>
+<a href="{% url 'tasks' %}" class="button">Go Back</a>
+{% endblock %}

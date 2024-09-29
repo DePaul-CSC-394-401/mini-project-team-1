@@ -14,5 +14,7 @@ urlpatterns = [
     path('task_archive/<str:pk>/', views.archiveTask, name='task_archive'),
     path('archived_tasks/', views.archivedTasks, name='archived_tasks'),
     path('task_restore/<str:pk>/', views.restoreTask, name='task_restore'),
-    path('task_add', views.AddTask, name='task_add')
+    path('task_add', views.AddTask, name='task_add'),
+    path('teams/create/', views.create_team, name='create_team'),
+    path('teams/', views.view_teams, name='view_teams'),
 ]
