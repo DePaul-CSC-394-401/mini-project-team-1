@@ -12,5 +12,16 @@
     </head>
     <body>
         {% block head %}{% endblock %}
+
+        <script>
+            window.onload = function() {
+                var reminderMessage = "{{ reminder_message }}";
+                
+                // Only show alert if there's an actual reminder message
+                if (reminderMessage && reminderMessage !== 'None') {
+                    alert(reminderMessage);
+                }
+            }
+        </script>
     </body>
 </html>

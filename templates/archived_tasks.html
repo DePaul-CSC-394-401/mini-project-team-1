@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<body>
+    <div class="header-container">
+        {% if user.is_authenticated %}
+            <div class="user-info">
+                Hello, {{ user.username }}!
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'logout' %}">Logout</a>
+                <a href="{% url 'profile_settings' %}">Profile Management</a>
+                <a href="{% url 'tasks' %}" style="color: blue;">Back to Tasks</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <h1>Archived Tasks</h1>
+
+    <div class="task-list">
+        <h2>Archived Tasks</h2>
+        <div class="task-grid">
+            {% for task in tasks %}
+            <div class="task-card">
+                <p><strong>Task Name:</strong> {{ task.task_name }}</p>
+                <p><strong>Description:</strong> {{ task.task_description }}</p>
+                <p><strong>Priority:</strong> {{ task.priority }}</p>
+                <p><strong>Due:</strong> {{ task.due_date }}</p>
+                {% if task.completed %}
+                    <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
+                {% else %}
+                    <p>Task Completed: No</p>
+                {% endif %}
+                
+                <!-- Restore and Delete Buttons -->
+                <a href="{% url 'task_restore' task.id %}" style="color: blue;">Restore</a> |
+                <a href="{% url 'task_delete' task.id %}" style="color: red;">Delete</a>
+            </div>
+            {% empty %}
+            <h3>No archived tasks available.</h3>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+{% endblock %}

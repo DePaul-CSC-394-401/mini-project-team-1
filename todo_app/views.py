@@ -62,8 +62,7 @@ def taskList(request):
     query = request.GET.get('q')  # Capture the search query
     query2 = request.GET.get('c') # Capture the category search query
 
-    # Display all tasks
-    tasks = Task.objects.filter(user=request.user)
+    tasks = Task.objects.filter(user=request.user, archived=False)  # Filter to show only non-archived tasks
 
     # This code will filter tasks by the search query (if provided)
     if query:
@@ -158,6 +157,28 @@ def profile_settings(request):
    else:
        password_form = PasswordChangeForm(user=request.user)
    return render(request, 'profile.html', {'password_form': password_form})
+
+
+def archiveTask(request, pk):
+    task = Task.objects.get(id=pk)
+    
+    if request.method == 'POST':  
+        task.archived = True  
+        task.save()  
+        return redirect('tasks')  
+    return redirect('tasks')  
+
+# View to list archived tasks
+def archivedTasks(request):
+    tasks = Task.objects.filter(user=request.user, archived=True)  # Show only archived tasks
+    context = {'tasks': tasks}
+    return render(request, 'archived_tasks.html', context)
+
+def restoreTask(request, pk):
+    task = Task.objects.get(id=pk)
+    task.archived = False  # Restore the task by setting archived to False
+    task.save()
+    return redirect('archived_tasks')
 
 
 
