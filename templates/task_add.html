@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<body>
+    <h1>Add a Task</h1>
+    <form action="" method="post">
+
+        {% csrf_token %}
+
+        <!-- Render the form fields manually to give better control over the layout -->
+        <div class="form-group">
+            <label for="task_name">Task name:</label>
+            {{ TaskForm.task_name }}
+        </div>
+
+        <div class="form-group">
+            <label for="task_description">Task description:</label>
+            {{ TaskForm.task_description }}
+        </div>
+
+        <div class="form-group"></div>
+            <label for="due_date">Due Date:</label>
+            {{ TaskForm.due_date }}
+        </div>
+
+        <div class="form-group"></div>
+            <label for="category">Category:</label>
+            {{ TaskForm.category }}
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority:</label>
+            {{ TaskForm.priority }}
+        </div>
+
+        <div class="form-group"></div>
+            <label for="reminder_hours">Reminder Hours:</label>
+            {{ TaskForm.reminder_hours }}
+        </div>
+
+        <!-- Submit button -->
+        <div class="form-group">
+            <input class="button" type="submit" value="Add Task">
+        </div>
+
+    </form>
+</body>
+{% endblock %}

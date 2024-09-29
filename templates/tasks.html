@@ -18,12 +18,8 @@
    
     <div class="task-list">
     
-        <!-- Task creation form -->
-        <form action='/tasks/' method="POST">
-            {% csrf_token %}
-            {{ TaskForm.as_p }}
-            <input class="button" type="submit" value="Create Task">
-        </form>
+        <!-- Task creation Link -->
+        <a href="{% url 'task_add' %}"> Add a Task</a> 
     
         <!-- Search form -->
         <form method="GET" action="">

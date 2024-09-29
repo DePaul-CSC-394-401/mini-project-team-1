@@ -58,7 +58,6 @@ def userlogout(request):
 
 
 def taskList(request):
-    form = TaskForm()  # Form for creating a new task
     query = request.GET.get('q')  # Capture the search query
     query2 = request.GET.get('c') # Capture the category search query
 
@@ -72,16 +71,6 @@ def taskList(request):
     if query2:
         tasks = Task.objects.filter(category__icontains=query2)
 
-    if request.method == 'POST':
-        # Process task creation via POST request
-        form = TaskForm(request.POST)
-        if form.is_valid():
-            task = form.save(commit=False)  # Don't save to the database yet
-            if not task.due_date:
-                task.due_date = None
-            task.user = request.user  # Automatically associate the task with the logged-in user
-            task.save()  # Save the task to the database
-        return redirect('/tasks')
 
     # Sort tasks by priority from high to low
     tasks = tasks.order_by(
@@ -103,14 +92,14 @@ def taskList(request):
     #checks for reminder message
     reminder_message = request.session.pop('reminder', None)
 
-    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message, 'reminder_message': reminder_message}
+    context = {'tasks': tasks,'error_message': error_message, 'reminder_message': reminder_message}
 
     if not tasks.exists() and query2:
         error_message = "No such item found."
     else:
         error_message = ""
 
-    context = {'tasks': tasks, 'TaskForm': form, 'error_message': error_message}
+    context = {'tasks': tasks, 'error_message': error_message}
     return render(request, 'tasks.html', context)
 
 
@@ -180,7 +169,21 @@ def restoreTask(request, pk):
     task.save()
     return redirect('archived_tasks')
 
-
+def AddTask(request):
+    #tasks = Task.objects.filter(user=request.user, archived=False)
+    form = TaskForm() 
+    if request.method == 'POST':
+        # Process task creation via POST request
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)  # Don't save to the database yet
+            if not task.due_date:
+                task.due_date = None
+            task.user = request.user  # Automatically associate the task with the logged-in user
+            task.save()  # Save the task to the database
+        return redirect('/tasks')
+    context = {'TaskForm': form}
+    return render(request, 'task_add.html', context)
 
 
 '''
