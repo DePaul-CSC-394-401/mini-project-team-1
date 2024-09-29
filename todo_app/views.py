@@ -92,14 +92,14 @@ def taskList(request):
     #checks for reminder message
     reminder_message = request.session.pop('reminder', None)
 
-    context = {'tasks': tasks,'error_message': error_message, 'reminder_message': reminder_message}
+    
 
     if not tasks.exists() and query2:
         error_message = "No such item found."
     else:
         error_message = ""
 
-    context = {'tasks': tasks, 'error_message': error_message}
+    context = {'tasks': tasks,'error_message': error_message, 'reminder_message': reminder_message}
     return render(request, 'tasks.html', context)
 
 
