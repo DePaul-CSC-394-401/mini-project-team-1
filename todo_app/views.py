@@ -240,14 +240,22 @@ def view_team(request, team_id):
 def update_team(request, team_id):  
     team = get_object_or_404(Team, id=team_id)  
     if request.method == 'POST':
-        form = TeamForm(request.POST, instance=team)  # Bind form with existing team instance
+        form = TeamForm(request.POST, instance=team)  
         if form.is_valid():
-            form.save()  # Save the updated team details
-            return redirect('view_teams')  # Redirect after successful update
+            form.save()  
+            return redirect('view_teams')  
     else:
-        form = TeamForm(instance=team)  # Create a form instance with the current team data
+        form = TeamForm(instance=team)
 
-    return render(request, 'update_team.html', {'form': form})  # Render the form in the template
+    return render(request, 'update_team.html', {'form': form})  
+
+def delete_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        team.delete()  # Delete the team
+        return redirect('view_teams')  
+    return render(request, 'team_confirm_delete.html', {'team': team})  # Show confirmation page
+
 
 '''
 ---------testing out versions--------------------------

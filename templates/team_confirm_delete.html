@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Team</title>
+</head>
+<body>
+    <h1>Confirm Team Deletion</h1>
+    <p>Are you sure you want to delete the team "{{ team.name }}"? This action cannot be undone.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Yes, delete this team</button>
+        <a href="{% url 'view_teams' %}">No, take me back</a>
+    </form>
+</body>
+</html>
