@@ -122,6 +122,13 @@ def deleteTask(request, pk):
     context = {'tasks': tasks}
     return render(request, 'task_delete.html', context)
 
+def deleteall(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        Task.objects.filter(user=request.user, team=team).delete()
+        return redirect('tasks')
+    return render(request, 'task_delete.html', {'team': team})
+
 # ** Updated Profile Management View to handle email and password separately ** 
 def profile_settings(request):
    # Handle email form submission
