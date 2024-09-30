@@ -29,10 +29,11 @@
 
             <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks | </a>
             <a href="{% url 'create_team' %}" class="button">Create Team | </a>
-            <a href="{% url 'view_teams' %}" class="button">View Teams</a>
+            <a href="{% url 'view_teams' %}" class="button">View Teams | </a>
+            
     
         </form>
-
+        
         <!-- Display error message if no tasks found -->
         {% if error_message %}
             <p style="color: red;">{{ error_message }}</p>
@@ -62,13 +63,14 @@
                     {% endif %}
                 </p>
 
-                <div id="time">
-                    <span id="hour">00</span> :
-                    <span id="min">00</span> :
-                    <span id="sec">00</span>
-                    <button id="start">Start</button>
-                    <button id="stop">Stop</button>
-                </div>
+                <div class="time">
+                    <span class="hour">00</span> :
+                    <span class="min">00</span> :
+                    <span class="sec">00</span>
+                    <button class="btn-timer start">Start</button>
+                    <button class="btn-timer stop">Stop</button>
+                    <button class="btn-timer reset">Reset</button>
+                </div>                
         
                 {% if task.completed %}
                     <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
@@ -78,6 +80,7 @@
                 <p><strong>Team: </strong>{{ task.team }}</task></p>
                 <a href="{% url 'task_update' task.id %}">Update</a> |
                 <a href="{% url 'task_delete' task.id %}">Delete</a> |
+                
     <!-- Archive form -->
 <form action="{% url 'task_archive' task.id %}" method="POST" style="display:inline;">
     {% csrf_token %}

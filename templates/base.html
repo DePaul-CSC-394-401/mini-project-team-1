@@ -24,58 +24,80 @@
             }
         </script>
 
-<script>
-    let startBtn = document.getElementById('start');
-    let stopBtn = document.getElementById('stop');
-    let hour = 0;
-    let minute = 0;
-    let second = 0;
-    let count = 0;
+        <!-- Timer script -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const timers = document.querySelectorAll(".task-card"); // Select each task card
 
-    startBtn.addEventListener('click', function() {
-        timer = true;
-        stopwatch();
-    });
+                timers.forEach(function(timer) {
+                    let hourElement = timer.querySelector(".hour");
+                    let minuteElement = timer.querySelector(".min");
+                    let secondElement = timer.querySelector(".sec");
 
-    stopBtn.addEventListener('click', function() {
-        timer = false;
-    });
+                    let startBtn = timer.querySelector(".start");
+                    let stopBtn = timer.querySelector(".stop");
+                    let resetBtn = timer.querySelector(".reset"); // Select reset button
 
-    function stopwatch() {
-        if (timer) {
-            count++;
-            if (count == 100) {
-                second++;
-                count = 0;
-            }
-            if (second == 60) {
-                minute++;
-                second = 0;
-            }
-            if (minute == 60) {
-                hour++;
-                minute = 0;
-                second = 0;
-            }
-            let hrString = hour;
-            let minString = minute;
-            let secString = second;
-            if (hour < 10) {
-                hrString = "0" + hrString;
-            }
-            if (minute < 10) {
-                minString = "0" + minString;
-            }
-            if (second < 10) {
-                secString = "0" + secString;
-            }
-            document.getElementById('hour').innerHTML = hrString;
-            document.getElementById('min').innerHTML = minString;
-            document.getElementById('sec').innerHTML = secString;
-            setTimeout(stopwatch, 10);
-        }
-    }
-</script>
-       
+                    let hour = 0;
+                    let minute = 0;
+                    let second = 0;
+                    let timerActive = false;
+                    let timerId;
+
+                    startBtn.addEventListener("click", function() {
+                        if (!timerActive) {
+                            timerActive = true;
+                            startTimer();
+                        }
+                    });
+
+                    stopBtn.addEventListener("click", function() {
+                        timerActive = false;
+                        clearTimeout(timerId);
+                    });
+
+                    resetBtn.addEventListener("click", function() {
+                        timerActive = false;
+                        clearTimeout(timerId);
+                        resetTimer(); // Call reset function to set time to 0
+                    });
+
+                    function startTimer() {
+                        if (timerActive) {
+                            second++;
+
+                            if (second === 60) {
+                                minute++;
+                                second = 0;
+                            }
+
+                            if (minute === 60) {
+                                hour++;
+                                minute = 0;
+                            }
+
+                            // Format the time
+                            hourElement.textContent = hour < 10 ? "0" + hour : hour;
+                            minuteElement.textContent = minute < 10 ? "0" + minute : minute;
+                            secondElement.textContent = second < 10 ? "0" + second : second;
+
+                            timerId = setTimeout(startTimer, 1000); // Call function every 1 second
+                        }
+                    }
+
+                    function resetTimer() {
+                        hour = 0;
+                        minute = 0;
+                        second = 0;
+
+                        // Reset displayed time to 00:00:00
+                        hourElement.textContent = "00";
+                        minuteElement.textContent = "00";
+                        secondElement.textContent = "00";
+                    }
+                });
+            });
+        </script>
+
     </body>
 </html>

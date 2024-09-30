@@ -10,6 +10,7 @@ urlpatterns = [
     path('tasks/', views.taskList, name='tasks'),
     path('task_update/<str:pk>/', views.updateTask, name='task_update'),
     path('task_delete/<str:pk>/', views.deleteTask, name='task_delete'),
+    path('task_deleteall/<int:team_id>', views.deleteall, name='task_deleteall'),
     path('profile/', views.profile_settings, name='profile_settings'),  # Added profile management
     path('task_archive/<str:pk>/', views.archiveTask, name='task_archive'),
     path('archived_tasks/', views.archivedTasks, name='archived_tasks'),

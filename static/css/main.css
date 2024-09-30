@@ -87,7 +87,8 @@ input[type="email"], input[type="password"], input[id="username"], textarea {
     box-sizing: border-box;
 }
 
-input[type="submit"], button {
+/* Adjusted Global Button Styles */
+form button, input[type="submit"] {
     font-size: 1.2em;
     padding: 10px 20px;
     background-color: #3498db;
@@ -98,7 +99,7 @@ input[type="submit"], button {
     transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover, button:hover {
+form button:hover, input[type="submit"]:hover {
     background-color: #2980b9;
 }
 
@@ -152,7 +153,7 @@ input[type="email"], input[type="password"], input[id="username"], textarea {
 }
 
 /* Button Styles */
-button, input[type="submit"] {
+form button, input[type="submit"] {
     font-size: 1.2em;
     padding: 10px 20px;
     background-color: #27ae60;
@@ -163,7 +164,7 @@ button, input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-button:hover, input[type="submit"]:hover {
+form button:hover, input[type="submit"]:hover {
     background-color: #2ecc71;
 }
 
@@ -244,7 +245,7 @@ a:hover {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Adjust the width for how large the cards should be */
+    width: 300px;
     margin: 10px;
 }
 
@@ -268,9 +269,57 @@ a:hover {
     margin-left: 5px;
 }
 
-.complete-checkmark{
+.complete-checkmark {
     color: green;
     font-size: medium;
     font-weight: bold;
     margin-left: 5px;
+}
+
+/* Timer Button Styles */
+.time .btn-timer {
+    font-size: 0.9em;
+    padding: 5px 10px;
+    margin: 2px;
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+}
+
+/* Hover effects for all timer buttons */
+.time .btn-timer:hover {
+    opacity: 0.85;
+}
+
+/* Specific styles for start button */
+.time .start {
+    background-color: #27ae60;
+}
+
+.time .start:hover {
+    background-color: #2ecc71;
+}
+
+/* Specific styles for stop button */
+.time .stop {
+    background-color: #e67e22;
+}
+
+.time .stop:hover {
+    background-color: #d35400;
+}
+
+/* Specific styles for reset button */
+.time .reset {
+    background-color: #e74c3c;
+}
+
+.time .reset:hover {
+    background-color: #c0392b;
 }
