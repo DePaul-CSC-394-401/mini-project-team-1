@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1>Invite Member to {{ team.name }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ invite_form.as_p }}
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    <button type="submit">retry</button>
+    {% else %}
+    <button type="submit">Invite</button>
+    {% endif %}
+
+</form>
+
+{% endblock %}

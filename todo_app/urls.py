@@ -17,4 +17,6 @@ urlpatterns = [
     path('task_add', views.AddTask, name='task_add'),
     path('teams/create/', views.create_team, name='create_team'),
     path('teams/', views.view_teams, name='view_teams'),
+    path('team/<int:team_id>/', views.view_team, name='view_team'),
+    path('team/<int:team_id>/invite/', views.invite_member, name='invite_member'),
 ]

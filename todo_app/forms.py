@@ -36,3 +36,5 @@ class TeamForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Team Name'}))
     description = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Describe your team here...'}), required=False)
 
+class InviteForm(forms.Form):
+    username_or_email = forms.CharField(max_length=150)

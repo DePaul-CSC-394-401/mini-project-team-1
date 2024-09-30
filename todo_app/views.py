@@ -1,13 +1,13 @@
 from datetime import timedelta, timezone
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from .models import Task
-from .forms import TaskForm, TaskUpdateForm, TeamForm
+from .models import Task, Team
+from .forms import InviteForm, TaskForm, TaskUpdateForm, TeamForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db import models
@@ -192,7 +192,7 @@ def create_team(request):
             team = form.save(commit=False)
             team.save()
             team.members.add(request.user)  # Add the user creating the team as a member
-            return redirect('view_teams')
+            return redirect('view_team', team_id=team.id)
     else:
         form = TeamForm()
     return render(request, 'create_team.html', {'form': form})
@@ -202,6 +202,34 @@ def view_teams(request):
     teams = request.user.teams.all()  # Get all teams the user is part of
     context = {'teams': teams}
     return render(request, 'view_teams.html', context)
+
+def invite_member(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    if request.method == 'POST':
+        invite_form = InviteForm(request.POST)
+        if invite_form.is_valid():
+            username_or_email = invite_form.cleaned_data['username_or_email']
+            try:
+                user = User.objects.get(username=username_or_email)
+            except User.DoesNotExist:
+                try:
+                    user = User.objects.get(email=username_or_email)
+                except User.DoesNotExist:
+                    user = None
+
+            if user:
+                team.members.add(user)
+                return redirect('view_team', team_id=team.id)
+            else:
+                return render(request, 'invite_member.html', {"error": "User does not exist or incorrect user/email"})
+    else:
+        invite_form = InviteForm()
+    return render(request, 'invite_member.html', {'team': team, 'invite_form': invite_form})
+
+def view_team(request, team_id):
+    team = get_object_or_404(Team, id=team_id)
+    context = {'team': team}
+    return render(request, 'view_team.html', context)
 
 
 '''

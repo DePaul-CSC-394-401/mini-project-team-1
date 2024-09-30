@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1>{{ team.name }}</h1>
+<p>{{ team.description }}</p>
+<h2>Members</h2>
+<ul>
+    {% for member in team.members.all %}
+        <li>{{ member.username }}</li>
+    {% endfor %}
+</ul>
+<form method="post" action="{% url 'invite_member' team.id %}">
+    {% csrf_token %}
+    {{ invite_form.as_p }}
+    <button type="submit">Add Team Member</button>
+</form>
+
+<a href="{% url 'view_teams' %}" class="button">Back to teams | </a>
+<a href="{% url 'tasks' %}" class="button">Back to tasks</a>
+
+{% endblock %}
