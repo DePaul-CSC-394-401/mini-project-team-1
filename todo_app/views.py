@@ -14,8 +14,6 @@ from django.db import models
 from django.utils import timezone
 
 
-
-
 def index(request):
     return render(request, 'index.html')
 
@@ -232,6 +230,17 @@ def view_team(request, team_id):
     context = {'team': team, 'tasks' : tasks}
     return render(request, 'view_team.html', context)
 
+def update_team(request, team_id):  
+    team = get_object_or_404(Team, id=team_id)  
+    if request.method == 'POST':
+        form = TeamForm(request.POST, instance=team)  # Bind form with existing team instance
+        if form.is_valid():
+            form.save()  # Save the updated team details
+            return redirect('view_teams')  # Redirect after successful update
+    else:
+        form = TeamForm(instance=team)  # Create a form instance with the current team data
+
+    return render(request, 'update_team.html', {'form': form})  # Render the form in the template
 
 '''
 ---------testing out versions--------------------------

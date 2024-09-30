@@ -4,7 +4,8 @@
 <ul>
     {% for team in teams %}
     <li>
-        <a href="{% url 'view_team' team.id %}"><strong>{{ team.name }}</strong></a> - {{ team.description }}
+        <strong>{{ team.name }}</strong> - {{ team.description }}
+        <a href="{% url 'update_team' team.id %}">Update</a>  <!-- Update button for each team -->
     </li>
     {% empty %}
     <li>You are not part of any teams.</li>

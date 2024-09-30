@@ -19,4 +19,6 @@ urlpatterns = [
     path('teams/', views.view_teams, name='view_teams'),
     path('team/<int:team_id>/', views.view_team, name='view_team'),
     path('team/<int:team_id>/invite/', views.invite_member, name='invite_member'),
+    path('team/<int:team_id>/update/', views.update_team, name='update_team'),  
+
 ]
