@@ -62,6 +62,14 @@
                     {% endif %}
                 </p>
 
+                <div id="time">
+                    <span id="hour">00</span> :
+                    <span id="min">00</span> :
+                    <span id="sec">00</span>
+                    <button id="start">Start</button>
+                    <button id="stop">Stop</button>
+                </div>
+        
                 {% if task.completed %}
                     <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
                 {% else %}
@@ -89,5 +97,6 @@
             }
         };
     </script>
+
 </body>
 {% endblock %}

@@ -37,6 +37,8 @@ class Task(models.Model):
     category = models.CharField(max_length=20, default='Uncategorized')
     progress = models.CharField(max_length=5, choices=PERCENTAGES_CHOICES, default="0%")
     archived = models.BooleanField(default=False)
+ 
+
     
     def __str__(self):
         return self.task_name
