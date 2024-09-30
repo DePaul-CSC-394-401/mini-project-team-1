@@ -228,7 +228,8 @@ def invite_member(request, team_id):
 
 def view_team(request, team_id):
     team = get_object_or_404(Team, id=team_id)
-    context = {'team': team}
+    tasks = Task.objects.filter(team=team)
+    context = {'team': team, 'tasks' : tasks}
     return render(request, 'view_team.html', context)
 
 

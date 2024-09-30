@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% block head %}
-<h1>{{ team.name }}</h1>
+<div class="header-container">
+    <h1>{{ team.name }}</h1>
+    <div class="nav-links">
+        <a href="{% url 'task_add' %}"> Add a Task | </a>
+        <a href="{% url 'view_teams' %}" class="button">Back to teams | </a>
+        <a href="{% url 'tasks' %}" class="button">Back to tasks</a> 
+    </div>
+</div>
+
 <p>{{ team.description }}</p>
+
 <h2>Members</h2>
 <ul>
     {% for member in team.members.all %}
@@ -14,7 +23,75 @@
     <button type="submit">Add Team Member</button>
 </form>
 
-<a href="{% url 'view_teams' %}" class="button">Back to teams | </a>
-<a href="{% url 'tasks' %}" class="button">Back to tasks</a>
+<div class="task-list">
+    
+    <!-- Search form -->
+    <form method="GET" action="">
+        <input type="text" name="q" placeholder="Search tasks..." value="{{ request.GET.q }}">
+        <button type="submit">Search</button>
+
+        <input type="text" name="c" placeholder="Categories" value="{{ request.GET.c }}">
+        <button type="submit">Search</button>
+
+        <a href="{% url 'archived_tasks' %}" style="color:green;">View Archived Tasks | </a>
+
+    </form>
+
+    <!-- Display error message if no tasks found -->
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <h2>To-Dos</h2>
+    <!-- Display tasks in a neater, grid-like style -->
+    <div class="task-grid">
+        {% for task in tasks %}
+        <div class="task-card">
+            <p style="text-align: center"><strong>Category:</strong> {{ task.category }}</p>
+            <br>
+            <p><strong>Task Name:</strong> {{ task.task_name }}</p>
+            <p><strong>Description:</strong> {{ task.task_description }}</p>
+            <p><strong>Priority:</strong> 
+                {{ task.priority }} 
+                {% if task.priority == 'High' %}
+                    <span class="high-priority-icon">!</span> <!-- Add icon for High priority -->
+                {% endif %}
+            </p>
+
+            <p><strong>Due: </strong> {{ task.due_date }}</p>
+            <p><strong>Progress: </strong> 
+                {{ task.progress }}
+                {% if task.progress == '100%' %}
+                    <span class="100% progress">&#10003;</span>
+                {% endif %}
+            </p>
+
+            {% if task.completed %}
+                <p class="complete-checkmark">Task Completed: Yes &#10003;</p>
+            {% else %}
+                <p>Task Completed: No</p>
+            {% endif %}
+            <a href="{% url 'task_update' task.id %}">Update</a> |
+            <a href="{% url 'task_delete' task.id %}">Delete</a> |
+<!-- Archive form -->
+<form action="{% url 'task_archive' task.id %}" method="POST" style="display:inline;">
+{% csrf_token %}
+<button type="submit" style="background:none; border:none; color:blue; cursor:pointer;">Archive</button>
+</form>
+        </div>
+        {% empty %}
+        <h3>Currently No Tasks in List</h3>
+        {% endfor %}
+    </div>
+</div>
+<script>
+    window.onload = function() {
+        var reminderMessage = "{{ reminder_message }}";
+        if (reminderMessage) {
+            alert(reminderMessage);
+        }
+    };
+</script>
+</body>
 
 {% endblock %}

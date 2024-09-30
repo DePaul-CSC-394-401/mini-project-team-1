@@ -67,6 +67,7 @@
                 {% else %}
                     <p>Task Completed: No</p>
                 {% endif %}
+                <p><strong>Team: </strong>{{ task.team }}</task></p>
                 <a href="{% url 'task_update' task.id %}">Update</a> |
                 <a href="{% url 'task_delete' task.id %}">Delete</a> |
     <!-- Archive form -->
