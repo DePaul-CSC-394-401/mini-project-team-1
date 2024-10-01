@@ -3,14 +3,27 @@ from django.forms import ModelForm
 from .models import Task, Team
 from django.contrib.auth.models import User
 
+# forms.py
+
 class TaskForm(forms.ModelForm):
     task_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Add in a New Task'}))
     due_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}), required=False)
-    team = forms.ModelChoiceField(queryset=Team.objects.all(), required=False, empty_label="Select a Team")
-    
+
     class Meta:
         model = Task
         fields = ['task_name', 'due_date', 'task_description', 'priority', 'category', 'reminder_hours', 'team']
+
+    def __init__(self, *args, **kwargs):
+        # Get the current user from the kwargs (passed in from the view)
+        user = kwargs.pop('user', None)
+        super(TaskForm, self).__init__(*args, **kwargs)
+        
+        if user:
+            # Filter teams to only show teams the user is part of
+            self.fields['team'].queryset = Team.objects.filter(members=user)
+
+
+
 
 # ** Email Update Form for Profile Management **
 class EmailUpdateForm(forms.ModelForm):

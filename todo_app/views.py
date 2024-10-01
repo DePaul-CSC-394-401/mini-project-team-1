@@ -174,21 +174,19 @@ def restoreTask(request, pk):
     task.save()
     return redirect('archived_tasks')
 
+# views.py
+
 def AddTask(request):
-    #tasks = Task.objects.filter(user=request.user, archived=False)
-    form = TaskForm() 
     if request.method == 'POST':
-        # Process task creation via POST request
-        form = TaskForm(request.POST)
+        form = TaskForm(request.POST, user=request.user)  # Pass the logged-in user
         if form.is_valid():
-            task = form.save(commit=False)  # Don't save to the database yet
-            if not task.due_date:
-                task.due_date = None
-            task.user = request.user  # Automatically associate the task with the logged-in user
-            task.save()  # Save the task to the database
-        return redirect('/tasks')
-    context = {'TaskForm': form}
-    return render(request, 'task_add.html', context)
+            task = form.save(commit=False)
+            task.user = request.user  # Assign the logged-in user to the task
+            task.save()
+            return redirect('/tasks')
+    else:
+        form = TaskForm(user=request.user)  # Pass the logged-in user
+    return render(request, 'task_add.html', {'TaskForm': form})
 
 def create_team(request):
     if request.method == 'POST':
