@@ -3,23 +3,33 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8;
-    color: #333;
+    background-color: #f5f7fa;
+    color: #2c3e50;
+    line-height: 1.6;
+    border-top: 4px solid #2980b9; /* Border at the top of the page */
+    transition: all 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #34495e;
 }
 
 /* Headers */
 h1 {
     text-align: center;
-    font-size: 2.5em;
+    font-size: 3em;
     margin-bottom: 20px;
-    color: #34495e;
+    color: #2c3e50;
 }
 
 .header {
     text-align: center;
-    font-size: 3em;
+    font-size: 2.8em;
     margin: 20px 0;
-    color: #2c3e50;
+    color: #2980b9;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 /* General Layout */
@@ -27,25 +37,30 @@ h1 {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Task Body */
 .taskbody {
-    background-color: #f9f9f9;
+    background-color: #ffffff;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
 }
 
 /* Signup Page */
 #usersignup {
-    background-color: #e0f7fa;
+    background-color: #f1f9fc;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 80vh;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .loginlink {
@@ -55,145 +70,65 @@ h1 {
     margin-top: 15px;
 }
 
+/* Index Page */
 #index_page {
     background-color: #fcf8e3;
     color: #333;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Form Styles */
 form {
+    width: 100%;
+    max-width: 600px;
     text-align: center;
-    margin: 20px 0;
-    padding: 20px;
+    padding: 30px;
+    margin: 0 auto;
 }
 
 label {
     display: block;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #333;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #2c3e50;
 }
 
 input[type="email"], input[type="password"], input[id="username"], textarea {
-    font-size: 1.2em;
-    padding: 10px;
-    width: 80%;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-/* Adjusted Global Button Styles */
-form button, input[type="submit"] {
-    font-size: 1.2em;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-form button:hover, input[type="submit"]:hover {
-    background-color: #2980b9;
-}
-
-.userbody {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Login Page */
-#userloginpage {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    padding: 20px;
-}
-
-.box, .userbox {
-    border-radius: 10px;
-    width: 100%;
-    max-width: 850px;
-    padding: 30px;
-    text-align: center;
-    background-color: #ecf0f1;
-    border-width: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-/* Form Input Boxes */
-.inputbox, .inputbox2 {
-    width: 80%;
-    padding: 15px;
-    margin: 10px auto;
-    font-size: 1em;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-input[type="email"], input[type="password"], input[id="username"], textarea {
-    font-size: 1em;
-    padding: 10px;
+    font-size: 1.1em;
+    padding: 12px;
     width: 100%;
     margin: 10px 0;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 6px;
     box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus, input[type="password"]:focus, input[id="username"]:focus, textarea:focus {
+    border-color: #3498db;
+    outline: none;
 }
 
 /* Button Styles */
 form button, input[type="submit"] {
     font-size: 1.2em;
-    padding: 10px 20px;
-    background-color: #27ae60;
+    padding: 12px 25px;
+    background-color: #2980b9;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 form button:hover, input[type="submit"]:hover {
-    background-color: #2ecc71;
+    background-color: #1e6091;
+    box-shadow: 0 4px 12px rgba(50, 50, 93, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
-/* Links */
-a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Additional Styles */
-.error-message {
-    color: #e74c3c;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
-}
-
-.success-message {
-    color: #2ecc71;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
-}
-
-/* Task List Styles */
+/* Task List */
 .task-list {
     list-style: none;
     padding: 0;
@@ -202,37 +137,48 @@ a:hover {
 
 .task-list li {
     background-color: #ffffff;
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 18px;
+    margin-bottom: 12px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
 }
 
-/* Header Container for Username and Links */
+.task-list li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Container */
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    font-size: 1.5em;
-}
-
-.header-container .user-info {
-    font-weight: bold;
+    padding: 12px 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #2980b9; /* Border for the header section */
 }
 
 .header-container a {
     margin-left: 15px;
     text-decoration: none;
     color: #3498db;
+    transition: color 0.3s ease;
+}
+
+.header-container a:first-child {
+    margin-left: 0;
 }
 
 .header-container a:hover {
-    text-decoration: underline;
+    color: #1e6091;
 }
 
-/* Task Grid Styles */
+/* Task Grid */
 .task-grid {
     display: flex;
     flex-wrap: wrap;
@@ -241,63 +187,53 @@ a:hover {
 }
 
 .task-card {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 10px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    width: 320px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .task-card p {
-    margin: 10px 0;
+    margin: 12px 0;
+    color: #2c3e50;
 }
 
 .task-card a {
     color: #3498db;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .task-card a:hover {
+    color: #1e6091;
     text-decoration: underline;
-}
-
-.high-priority-icon {
-    color: red;
-    font-size: large;
-    font-weight: bold;
-    margin-left: 5px;
-}
-
-.complete-checkmark {
-    color: green;
-    font-size: medium;
-    font-weight: bold;
-    margin-left: 5px;
 }
 
 /* Timer Button Styles */
 .time .btn-timer {
     font-size: 0.9em;
-    padding: 5px 10px;
-    margin: 2px;
+    padding: 8px 15px;
+    margin: 4px;
     background-color: #27ae60;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: inline-block;
-    width: 60px;
-    text-align: center;
+    transition: all 0.3s ease;
 }
 
-/* Hover effects for all timer buttons */
 .time .btn-timer:hover {
-    opacity: 0.85;
+    opacity: 0.9;
 }
 
-/* Specific styles for start button */
+/* Specific Button Styles */
 .time .start {
     background-color: #27ae60;
 }
@@ -306,7 +242,6 @@ a:hover {
     background-color: #2ecc71;
 }
 
-/* Specific styles for stop button */
 .time .stop {
     background-color: #e67e22;
 }
@@ -315,11 +250,37 @@ a:hover {
     background-color: #d35400;
 }
 
-/* Specific styles for reset button */
 .time .reset {
     background-color: #e74c3c;
 }
 
 .time .reset:hover {
     background-color: #c0392b;
+}
+
+/* Error & Success Messages */
+.error-message {
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.success-message {
+    color: #2ecc71;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 12px;
+}
+
+/* Links */
+a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1e6091;
+    text-decoration: underline;
 }

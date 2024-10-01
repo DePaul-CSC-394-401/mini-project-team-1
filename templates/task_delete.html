@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Delete Task</title>
+    {% load static %} <!-- Load static files -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}"> <!-- Link to main.css -->
 </head>
 
 <body id='taskbody'>
@@ -11,9 +13,7 @@
     <p> Delete task? - {{tasks}}</p>
 
     <form action="" method="POST">
-
         {% csrf_token %}
-
         <input type="submit" name="Yes">
     </form>
 
